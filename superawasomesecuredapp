@@ -1,18 +1,84 @@
 <!DOCTYPE html>
 
-
 <head>
-	<html>
-	
-	<title>LaheCryptoApp</title>
-	<h1> Cryptoapp </h1>
-	<div id="introduction">
-		<img src="https://cdn-images-1.medium.com/max/1600/1*HtksubEq1RaeXtAH9LxNJw.jpeg" height="250" width="500">
-		<h2><a href="https://www.google.com/search?q=tiger+woods+all+I+know+is+I+tried+my+best&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjbrdbT6LHgAhXm0aYKHR5ZAIgQ_AUIDigB&biw=767&bih=784&dpr=1.25">Nii ongi</a></h2>
-		<pr></pr>
-		
-	</html>
+<html>
+<title>LaheCryptoApp</title>
+<h1 style="color:lime; font-size:50px;"> Tagasihoidlik cryptoapp </h1>
+<div id="introduction">
+	<textarea rows="5" cols="60" id="tekst">Sisestage tekst</textarea><br>
+	<textarea rows="5" cols="60" id="key">Sisestage võti, kui vaja</textarea><br>
+	<button type="button" onclick="OTPencrypt()">OTP-encrypt</button>
+	<button type="button" onclick="OTPdecrypt()">OTP-decrypt</button>
+	<button type="button" onclick="SHA()">SHA-2</button>
+	<button type="button" onclick="MD5()">MD5 decrypt</button>
+	<button type="button" onclick="virus()">Download virus</button><br>
+	<textarea rows="5" cols="60" id="answer">Siia tuleb vastus</textarea><br>
+</div>
+</html>
 </head>
-<body>
+<body style="background-color:blue;">
+<script>
+function OTPencrypt() {
+	var textareavalue = document.getElementById("tekst").value;
+	var keyvalue = document.getElementById("key").value;
+	var alphabet = "abcdefghijklmnopqrstuvwxyz";
+    var upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	var answer = '';
+    var numberOf = 0;
+	for (i = 0; i < textareavalue.length; i++) {
+    	if (alphabet.includes(textareavalue[i])){
+        	numberOf = alphabet.indexOf(textareavalue[i]) + alphabet.indexOf(keyvalue[i]);
+            if (numberOf > alphabet.length) {
+            	numberOf = numberOf % (alphabet.length);
+            }
+            answer += alphabet.substring(numberOf, numberOf + 1);
+        } else {
+        	numberOf = upperAlphabet.indexOf(textareavalue[i]) + upperAlphabet.indexOf(keyvalue[i]);
+            if (numberOf > alphabet.length) {
+            	numberOf = numberOf % (alphabet.length);
+            }
+            answer += upperAlphabet.substring(numberOf, numberOf + 1);
+        }
+        
+    }
+	
+	document.getElementById("answer").innerHTML = answer;
+}
+function OTPdecrypt() {
+	var textareavalue = document.getElementById("tekst").value;
+	var keyvalue = document.getElementById("key").value;
+	var alphabet = "abcdefghijklmnopqrstuvwxyz";
+    var upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	var answer = '';
+    var numberOf = 0;
+	for (i = 0; i < textareavalue.length; i++) {
+    	if (alphabet.includes(textareavalue[i])){
+        	numberOf = alphabet.indexOf(textareavalue[i]) - alphabet.indexOf(keyvalue[i]);
+            if (numberOf < 0) {
+            	numberOf += alphabet.length;
+            }
+            answer += alphabet.substring(numberOf, numberOf + 1);
+        } else {
+        	numberOf = upperAlphabet.indexOf(textareavalue[i]) - upperAlphabet.indexOf(keyvalue[i]);
+            if (numberOf < 0) {
+            	numberOf += alphabet.length;
+            }
+            answer += upperAlphabet.substring(numberOf, numberOf + 1);
+        }
+	}
+	document.getElementById("answer").innerHTML = answer;
+}
+function SHA() {
+	var textareavalue = document.getElementById("tekst").value;
+	document.getElementById("answer").innerHTML = window.btoa(textareavalue);
+}
+function MD5() {
+	 window.alert("I'm truly sorry, but salted MD5 cannot be decoded using 1 week of hard study of javascript and HTML.");
+}
+function virus() {
+	var message = "Hi, I am a Student virus but because of poor technology and lack of financial support I am not able to harm your computer. Please be so kind to delete one of your important files yourself and then forward me to other users. Many thanks for your cooperation! Your beloved, Student virus.";
+	window.alert(message);
+}
+</script>
 	
 </body>
